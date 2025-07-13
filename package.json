@@ -1,0 +1,12 @@
+{
+    "name": "clearning",
+    "version": "1.0.0",
+    "description": "Crestal Learning",
+    "scripts": {
+        "write": "prettier --write .",
+        "check": "prettier --check ."
+    },
+    "devDependencies": {
+        "prettier": "^3.6.2"
+    }
+}
