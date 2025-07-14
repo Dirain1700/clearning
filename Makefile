@@ -6,3 +6,8 @@ golintfix:
 
 gofmt:
 	goimports -w server
+
+genrsa:
+	cd server && \
+	ssh-keygen -t rsa -b 2048 -m PEM -f rsa.key && \
+	openssl rsa -in ./server/rsa.key -pubout -outform PEM -out ./server/rsa_pub.pem
