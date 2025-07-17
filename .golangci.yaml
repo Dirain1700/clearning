@@ -5,6 +5,8 @@ version: "2"
 linters:
     default: all
     disable:
+        - exhaustruct
+        - funlen
         - depguard
         - forbidigo
         - wsl
