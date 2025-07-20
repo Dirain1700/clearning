@@ -12,8 +12,8 @@ import (
 func HandleAuthEntry(res http.ResponseWriter, req *http.Request) {
 	// try to get the user without re-authenticating
 	def.ModifyURLParams(req, "provider", "google")
-	_, err := gothic.CompleteUserAuth(res, req)
 
+	_, err := gothic.CompleteUserAuth(res, req)
 	if err == nil {
 		http.Redirect(res, req, "/info", http.StatusFound)
 	} else {

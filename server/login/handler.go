@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"net/url"
 
 	"github.com/dirain1700/clearning/server/auth"
 	"github.com/dirain1700/clearning/server/def"
@@ -44,5 +45,20 @@ func HandleLogin(res http.ResponseWriter, req *http.Request) {
 		MaxAge:   int(auth.JWTExpiresIn.Seconds()),
 	})
 
-	res.WriteHeader(http.StatusOK)
+	log.Printf("Successfully set cookie %s", def.JWTCookieName)
+
+	encodedPathFrom := req.URL.Query().Get("from")
+
+	pathFrom, err := url.PathUnescape(encodedPathFrom)
+	if err != nil {
+		log.Printf("Error decoding 'from' parameter: %v", err)
+
+		pathFrom = "/" // Default redirect path if decoding fails
+	}
+
+	if pathFrom == "" {
+		pathFrom = "/" // Default redirect path if not specified
+	}
+
+	http.Redirect(res, req, pathFrom, http.StatusFound)
 }

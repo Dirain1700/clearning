@@ -30,5 +30,5 @@ func HandleLogout(res http.ResponseWriter, req *http.Request) {
 		MaxAge:   -1, // Expire the cookie immediately
 	})
 
-	res.WriteHeader(http.StatusOK)
+	http.Redirect(res, req, "/", http.StatusFound)
 }
