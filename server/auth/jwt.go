@@ -1,5 +1,5 @@
-// Package server (Auth) provides JWT auth func for the application.
-package server
+// Package auth provides JWT auth func for the application.
+package auth
 
 import (
 	"errors"
@@ -15,9 +15,11 @@ const (
 	rsaKeyPath       = "./server/rsa.key"
 	rsaPublicKeyPath = "./server/rsa_pub.pem"
 
-	daysInWeek   = 7
-	hoursInDay   = 24
-	jwtExpiresIn = time.Hour * hoursInDay // 24時間
+	daysInWeek = 7
+	hoursInDay = 24
+
+	// JWTExpiresIn defines the expiration time for the JWT token.
+	JWTExpiresIn = (time.Hour * hoursInDay * daysInWeek) // 7 days
 )
 
 var errSignMethosdMismatch = errors.New("signing method mismatch")
@@ -46,12 +48,14 @@ func GenerateJWT(user *goth.User) (string, error) {
 	// Create the JWT claims and sign
 	token := jwt.NewWithClaims(jwt.SigningMethodRS256, &UserJWTClaims{
 		StandardClaims: jwt.StandardClaims{
-			Subject:   user.UserID,
-			ExpiresAt: jwt.TimeFunc().Add(jwtExpiresIn).Unix(),
+			Subject: user.UserID,
+			// No need to use Seconds() cuz JWTExpiresIn is already in time.Duration format
+			ExpiresAt: jwt.TimeFunc().Add(JWTExpiresIn).Unix(),
 		},
 		Name:      user.Name,
 		AvatarURL: user.AvatarURL,
-		Exp:       jwt.TimeFunc().Add(jwtExpiresIn).Unix(),
+		// No need to use Seconds() cuz JWRExpiresIn is already in time.Duration format
+		Exp: jwt.TimeFunc().Add(JWTExpiresIn).Unix(),
 	})
 
 	tokenStr, err := token.SignedString(privateKey)
