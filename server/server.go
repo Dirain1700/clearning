@@ -42,13 +42,13 @@ func TestProvider() {
 		google.New(os.Getenv("GOOGLE_CLIENT_ID"), os.Getenv("GOOGLE_CLIENT_SECRET"), os.Getenv("REDIRECT_URL"), "profile"),
 	)
 
-	http.HandleFunc("/auth/callback", login.HandleLogin)
+	http.HandleFunc("/api/auth/callback", login.HandleLogin)
 
-	http.HandleFunc("/logout", logout.HandleLogout)
+	http.HandleFunc("/api/logout", logout.HandleLogout)
 
-	http.HandleFunc("/auth", auth.HandleAuthEntry)
+	http.HandleFunc("/api/auth", auth.HandleAuthEntry)
 
-	http.HandleFunc("/info", info.HandleInformation)
+	http.HandleFunc("/api/info", info.HandleInformation)
 
 	log.Println("listening on localhost:8000")
 	log.Fatal(http.ListenAndServe(":8000", nil)) //nolint: gosec // This is just a test server, not for production use.
