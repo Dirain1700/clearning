@@ -1,3 +1,6 @@
+gobuild:
+	go build -o server.out
+
 golint:
 	golangci-lint run -c .golangci.yaml
 
