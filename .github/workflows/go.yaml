@@ -2,13 +2,18 @@ name: Go
 
 on:
     push:
-        branches: ["master"]
+        branches: [master]
     pull_request:
-        branches: ["master"]
+        branches: [master]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
+    Build:
+        strategy:
+            matrix:
+                platform: [ubuntu-latest, windows-latest]
+
+        runs-on: ${{ matrix.platform }}
+
         steps:
             - uses: actions/checkout@v4
 
