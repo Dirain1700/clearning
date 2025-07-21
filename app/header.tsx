@@ -8,7 +8,6 @@ export function Header() {
     const user = useSession();
     const location = useLocation();
     const encoded = encodeURIComponent(location.pathname + location.search);
-    console.log("Current path:", location);
 
     return (
         <header className="sticky top-0 z-10 h-16 w-full border-b-[1px] border-[foreground] bg-[background] opacity-100 [&_*]:box-border">
