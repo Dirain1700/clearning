@@ -2,7 +2,6 @@
 package login
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"net/url"
@@ -19,7 +18,7 @@ func HandleLogin(res http.ResponseWriter, req *http.Request) {
 
 	user, err := gothic.CompleteUserAuth(res, req)
 	if err != nil {
-		log.Fatalln(fmt.Errorf("error completing user auth: %w", err))
+		log.Printf("error completing user auth: %v", err)
 	}
 
 	jwt, err := auth.GenerateJWT(
@@ -30,7 +29,7 @@ func HandleLogin(res http.ResponseWriter, req *http.Request) {
 		},
 	)
 	if err != nil {
-		log.Fatalln(fmt.Errorf("error generating JWT: %w", err))
+		log.Printf("error generating JWT: %v", err)
 
 		return
 	}
@@ -44,8 +43,6 @@ func HandleLogin(res http.ResponseWriter, req *http.Request) {
 		Path:     "/",
 		MaxAge:   int(auth.JWTExpiresIn.Seconds()),
 	})
-
-	log.Printf("Successfully set cookie %s", def.JWTCookieName)
 
 	encodedPathFrom := req.URL.Query().Get("from")
 
