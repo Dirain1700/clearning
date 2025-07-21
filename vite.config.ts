@@ -14,4 +14,7 @@ export default defineConfig({
             },
         },
     },
+    ssr: {
+        noExternal: ["@ionic/react", "@ionic/core", "@ionic/react-hooks"],
+    },
 });
