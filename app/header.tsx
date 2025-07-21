@@ -2,7 +2,7 @@
 
 import { Link, useLocation } from "react-router";
 
-import { useSession } from "./auth/provider";
+import { useSession } from "./auth/context";
 
 export function Header() {
     const user = useSession();

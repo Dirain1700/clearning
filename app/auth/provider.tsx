@@ -2,14 +2,9 @@
 
 import React from "react";
 
-interface IUserInfo {
-    sub: string;
-    name: string;
-    avatarUrl: string;
-}
+import { UserContext, setUserContext } from "./context";
 
-const UserContext = React.createContext<IUserInfo | null>(null);
-const setUserContext = React.createContext<React.Dispatch<React.SetStateAction<IUserInfo | null>>>(() => null);
+import type { IUserInfo } from "./context";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = React.useState<IUserInfo | null>(null);
@@ -37,12 +32,4 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             <setUserContext.Provider value={setUser}>{children}</setUserContext.Provider>
         </UserContext.Provider>
     );
-}
-
-export function useSession() {
-    return React.useContext(UserContext);
-}
-
-export function useSetSession() {
-    return React.useContext(setUserContext);
 }

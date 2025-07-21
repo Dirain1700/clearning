@@ -5,6 +5,7 @@ const globals = require("globals");
 const { fixupPluginRules, includeIgnoreFile } = require("@eslint/compat");
 
 const _import = require("eslint-plugin-import");
+const _refresh = require("eslint-plugin-react-refresh");
 const tsParser = require("@typescript-eslint/parser");
 const js = require("@eslint/js");
 
@@ -71,6 +72,7 @@ module.exports = [
 
         plugins: {
             import: fixupPluginRules(_import),
+            "react-refresh": fixupPluginRules(_refresh),
         },
 
         languageOptions: {
@@ -129,6 +131,7 @@ module.exports = [
                     "newlines-between": "always-and-inside-groups",
                 },
             ],
+            "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
         },
     },
 ];

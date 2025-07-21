@@ -1,3 +1,6 @@
+"use client";
+
+import { setupIonicReact, IonApp } from "@ionic/react";
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
 import type { Route } from "./+types/root";
@@ -7,6 +10,11 @@ import { AuthProvider } from "~/auth/provider";
 import "./app.css";
 import { Header } from "~/header";
 
+import "@ionic/react/css/core.css";
+
+setupIonicReact();
+
+// eslint-disable-next-line react-refresh/only-export-components
 export const links: Route.LinksFunction = () => [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     {
@@ -42,7 +50,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-    return <Outlet />;
+    return (
+        <IonApp>
+            <Outlet />
+        </IonApp>
+    );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
