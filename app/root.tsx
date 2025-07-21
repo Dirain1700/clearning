@@ -1,4 +1,4 @@
-"use client";
+"use strict";
 
 import { setupIonicReact, IonApp } from "@ionic/react";
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
